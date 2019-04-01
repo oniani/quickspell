@@ -15,12 +15,36 @@
  */
 
 #include "spellcheck.hpp"
+#include "../lib/trie.cpp"
 
 int main() {
-    std::cout << "Below are the words from the dictionary\n" << std::endl;
+    // std::cout << "Below are the words from the dictionary\n" << std::endl;
 
-    for (auto word : get_words("./data/linux.words"))
-        std::cout << word << std::endl;
+    // for (auto word : get_words("./data/linux.words"))
+    //     std::cout << word << std::endl;
+    
+    Trie trie;
+    trie.init();
+
+    std::cout << "Pointer to the head of the trie: " << trie.get_head() << std::endl;
+    std::cout << "The end of the trie: " << trie.get_is_end() << std::endl;
+
+    trie.insert("harley");
+    trie.insert("ham");
+    trie.insert("hamburger");
+    trie.insert("harley quinn");
+    trie.insert("he");
+
+    std::cout << "Word 'harley quinn': " << trie.search("harley quinn") << std::endl;
+    std::cout << "Word 'ham': " << trie.search("ham") << std::endl;
+    std::cout << "Word 'bam': " << trie.search("ha") << std::endl;
+
+    std::cout << "Words with the prefix 'Har': " << trie.words_with_prefix("har") << std::endl;
+    std::cout << "Current value: " << trie.get_value() << std::endl;
+
+    std::cout << "Words with the prefix 'Har': " << trie.words_by_prefix("har") << std::endl;
+
+    trie.~Trie();
 
     return 0;
 }

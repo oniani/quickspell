@@ -1,5 +1,5 @@
 # Parameters to control Makefile operation
-PROJECT=spell_check
+PROJECT=spellcheck
 CC=g++
 CFLAGS=-c -Wall -std=c++17
 LDFLAGS=

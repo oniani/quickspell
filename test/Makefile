@@ -1,7 +1,7 @@
 # Parameters to control Makefile operation
-PROJECT=
+PROJECT=trie
 CC=g++
-CFLAGS=-c -Wall -std=c++14
+CFLAGS=-c -Wall -std=c++17
 LDFLAGS=
 SOURCES=$(PROJECT)_catch.cpp $(PROJECT)_test.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
