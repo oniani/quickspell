@@ -16,19 +16,14 @@
 
 #ifndef SPELLCHECK_H
 #define SPELLCHECK_H
+#pragma once
 
-#include <cstring>
-#include <cstdlib>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
-#include <algorithm>
-#include <vector>
 #include <string>
-#include <cmath>
-#include <limits>
-#include <set>
-#include <map>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <chrono>
 
 // Reads a file with words and returns a vector of all the words
 std::vector<std::string> get_words(std::string);

@@ -13,37 +13,44 @@
 #include "trie.hpp"
 #include <iostream>
 #include <vector>
+#include <stack>
+#include <set>
+
 
 void Trie::init() {
-    this->head = new Trie();
+    this->root = new Trie();
     this->value = '\0';
     this->prefix_count = 0;
-    this->is_end = false;
+    this->is_end_of_word = false;
+}
+
+int Trie::get_index(char letter) {
+    return (std::isalnum(letter)) ? (std::tolower(letter) - 'a') : ALPHABET_SIZE - 1;
 }
 
 void Trie::insert(std::string word) {
-    Trie* current = this->head;
+    Trie* current = this->root;
     current->prefix_count++;
 
     for (char letter : word) {
-        int index = letter - 'a';
+        int index = Trie::get_index(letter);
 
         if (current->children[index] == NULL)
             current->children[index] = new Trie();
-        
+
         current->value = letter;
         current->children[index]->prefix_count++;
         current = current->children[index];
     }
 
-    current->is_end = true;
+    current->is_end_of_word = true;
 }
 
 bool Trie::search(std::string word) {
-    Trie* current = this->head;
+    Trie* current = this->root;
 
     for (char letter : word) {
-        int index = letter - 'a';
+        int index = Trie::get_index(letter);
 
         if (current->children[index] == NULL)
             return false;
@@ -51,14 +58,14 @@ bool Trie::search(std::string word) {
         current = current->children[index];
     }
 
-    return current->is_end;
+    return current->is_end_of_word;
 }
 
-int Trie::words_with_prefix(std::string prefix) {
-    Trie* current = this->head;
+int Trie::autocomplete_number(std::string prefix) {
+    Trie* current = this->root;
 
     for (char letter : prefix) {
-        int index = letter - 'a';
+        int index = Trie::get_index(letter);
 
         if (current->children[index] == NULL)
             return 0;
@@ -69,64 +76,45 @@ int Trie::words_with_prefix(std::string prefix) {
     return current->prefix_count;
 }
 
+void Trie::traverse(std::string prefix, Trie* trie, std::vector<std::string>& all_words) {
+    if (trie->is_end_of_word)
+        all_words.push_back(prefix);
 
-// WORK ON THIS!
-std::string Trie::words_by_prefix(std::string prefix) {
-    std::string result = "";
-    Trie* current = this->head;
+    for (uint i = 0; i < ALPHABET_SIZE; i++)
+        if(trie->children[i])
+            traverse(prefix + (char) (i + 'a'), trie->children[i], all_words);
+}
 
-    for (char letter : prefix) {
-        int index = letter - 'a';
+std::vector<std::string> Trie::autocomplete(std::string& prefix) {
+    Trie* current = this->root;
+    std::vector<std::string> result;
 
-        if (current->children[index] == NULL)
-            return 0;
-
+    for(uint i = 0; i < prefix.length(); i++) {
+        int index = Trie::get_index(prefix.at(i));
         current = current->children[index];
     }
 
-    std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
-    int count = 0;
+    Trie::traverse(prefix, current, result);
 
-    for (auto letter: alphabet) {
-        int index = letter - 'a';
-
-        if (current->children[index] != NULL) {
-            current = current->children[index];
-            count = 0;
-        }
-
-        else {
-            if (count == 0) {
-                result += current->value;
-                count += 1;
-            }
-        }
-    }
-
-    return prefix + result;
+    return result;
 }
 
 Trie::~Trie() {
-    if (this->head)
-        this->head = NULL;
-    delete this->head;
-
-    if (this->children[26])
-        this->children[26] = NULL;
-
-    delete[] this->children[26];
+    if (this->root)
+        this->root = NULL;
+    delete this->root;
 }
 
-Trie* Trie::get_head() {
-    return this->head;
+Trie* Trie::get_root() {
+    return this->root;
 }
 
 char Trie::get_value() {
     return this->value;
 }
 
-bool Trie::get_is_end() {
-    return this->is_end;
+bool Trie::get_is_end_of_word() {
+    return this->is_end_of_word;
 }
 
 int Trie::get_prefix_count() {

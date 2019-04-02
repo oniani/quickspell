@@ -1,7 +1,7 @@
 # Parameters to control Makefile operation
 PROJECT=spellcheck
 CC=g++
-CFLAGS=-c -Wall -std=c++17
+CFLAGS=-c -Wall -Werror -Wextra -std=c++17
 LDFLAGS=
 SRC_DIR=src
 TEST_DIR=test
@@ -10,7 +10,7 @@ SOURCES=$(SRC_DIR)/$(PROJECT)_main.cpp $(SRC_DIR)/$(PROJECT).cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 # Default
-all: main run clean
+all: main
 
 # Make (link) an executable
 main: $(SOURCES) $(PROJECT)
