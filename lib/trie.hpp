@@ -14,32 +14,33 @@
 #define TRIE_H
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <vector>
 
-const int ALPHABET_SIZE = 26;
+const int ALPHABET_SIZE = 128;
+
+struct TrieNode {
+    bool is_end_of_word;
+    TrieNode* children[ALPHABET_SIZE];
+    char value;
+    int prefix_count;
+};
 
 class Trie {
     private:
-        Trie* root;
-        char value;
-        bool is_end_of_word;
-        int prefix_count;
-        Trie* children[ALPHABET_SIZE];  // change it to 128 for all ASCII characters
+        TrieNode* root;
         int get_index(char);
     public:
-        // Trie(); // interesting...
-        void init();
+        Trie();
         void insert(std::string);
         bool search(std::string);
         int autocomplete_number(std::string);
-        void traverse(std::string, Trie*, std::vector<std::string>&);
+        void traverse(std::string, TrieNode*, std::vector<std::string>&);
         std::vector<std::string> autocomplete(std::string&);
         ~Trie();
 
         // Getters for the outside access
-        Trie* get_root();
+        TrieNode* get_root();
         char get_value();
         bool get_is_end_of_word();
         int get_prefix_count();

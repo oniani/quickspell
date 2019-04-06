@@ -20,7 +20,6 @@
 int main(int argc, char* argv[]) {
     // Initialize the trie
     Trie trie;
-    trie.init();
 
     // Insert all the words
     for (std::string word : get_words("../data/normalized.words"))
@@ -39,16 +38,16 @@ int main(int argc, char* argv[]) {
 
     // Print out all possible autocompletions
     for (auto word : trie.autocomplete(incomplete_word))
-        std::cout << word << std::endl;
+        std::cout << "\033[92m" + word.substr(0, incomplete_word.length()) +
+            "\033[0m" + word.substr(incomplete_word.length(), word.length()) << std::endl;
 
     auto end = std::chrono::steady_clock::now();
 
     auto time_elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 
-    std::cout << "\nSUMMARY" << std::endl;
-    std::cout << "------" << std::endl;
-    std::cout << "TOTAL NUMBER OF WORDS: " << trie.autocomplete_number(incomplete_word) << std::endl;
-    std::cout << "TIME (MICROSECONDS): " << time_elapsed << std::endl;
+    std::cout << "\n\033[93m\033[4mSUMMARY\033[0m" << std::endl;
+    std::cout << "\033[93mTOTAL NUMBER OF WORDS: " << trie.autocomplete_number(incomplete_word) << std::endl;
+    std::cout << "\033[93mTIME (MICROSECONDS):   " << time_elapsed << "\033[0m" << std::endl;
 
     return 0;
 }
