@@ -11,10 +11,6 @@
  */
 
 #include "trie.hpp"
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <set>
 
 Trie::Trie() {
     this->root = new TrieNode();

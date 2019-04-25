@@ -65,7 +65,10 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "variant": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "memory_resource": "cpp"
     },
     "python.pythonPath": "/usr/local/bin/python3"
 }
