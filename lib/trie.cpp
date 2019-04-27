@@ -96,19 +96,3 @@ Trie::~Trie() {
         this->root = NULL;
     delete this->root;
 }
-
-TrieNode* Trie::get_root() {
-    return this->root;
-}
-
-char Trie::get_value() {
-    return this->root->value;
-}
-
-bool Trie::get_is_end_of_word() {
-    return this->root->is_end_of_word;
-}
-
-int Trie::get_prefix_count() {
-    return this->root->prefix_count;
-}

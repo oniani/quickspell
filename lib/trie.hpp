@@ -38,12 +38,6 @@ class Trie {
         void traverse(std::string, TrieNode*, std::vector<std::string>&);
         std::vector<std::string> autocomplete(std::string&);
         ~Trie();
-
-        // Getters for the outside access
-        TrieNode* get_root();
-        char get_value();
-        bool get_is_end_of_word();
-        int get_prefix_count();
 };
 
 #endif
