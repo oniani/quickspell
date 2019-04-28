@@ -73,7 +73,7 @@ void Trie::traverse(std::string prefix, TrieNode* trie, std::vector<std::string>
         all_words.push_back(prefix);
 
     for (unsigned int i = 0; i < ALPHABET_SIZE; i++)
-        if(trie->children[i])
+        if (trie->children[i])
             traverse(prefix + (char) (i + 'a'), trie->children[i], all_words);
 }
 
@@ -81,8 +81,8 @@ std::vector<std::string> Trie::autocomplete(std::string& prefix) {
     TrieNode* current = this->root;
     std::vector<std::string> result;
 
-    for(unsigned int i = 0; i < prefix.length(); i++) {
-        int index = Trie::get_index(prefix.at(i));
+    for (unsigned int i = 0; i < prefix.length(); i++) {
+        int index = Trie::get_index(prefix[i]);
         current = current->children[index];
     }
 

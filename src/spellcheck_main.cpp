@@ -43,12 +43,15 @@ int main(int argc, char* argv[]) {
     std::stringstream ss = std::stringstream(input);
     ss >> incomplete_word;
 
+    // A variable to determine whether the pattern is a word
+    bool is_word;
+
     // Start the timer
     auto start = std::chrono::steady_clock::now();
 
     // Check if the incomplete_word is the actual word
     if (bloom_filter.search(incomplete_word))
-        std::cout << "\033[94mYour pattern is a word!\033[0m\n" << std::endl;
+        is_word = true;
 
     // Print out all possible autocompletions
     for (auto word : trie.autocomplete(incomplete_word))
@@ -63,7 +66,15 @@ int main(int argc, char* argv[]) {
 
     // Print out the statistics
     std::cout << "\n\033[93m\033[4mSUMMARY\033[0m" << std::endl;
+
+    // Is the pattern a word?
+    if (is_word)
+        std::cout << "\033[94mYOUR PATTERN IS A WORD!\033[0m\n" << std::endl;
+
+    // What is the total number of words?
     std::cout << "\033[93mTOTAL NUMBER OF WORDS: " << trie.autocomplete_number(incomplete_word) << std::endl;
+
+    // What time did the program take?
     std::cout << "\033[93mTIME (MICROSECONDS):   " << time_elapsed << "\033[0m" << std::endl;
 
     return 0;
