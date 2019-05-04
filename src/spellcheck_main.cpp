@@ -50,8 +50,11 @@ int main(int argc, char* argv[]) {
     auto start = std::chrono::steady_clock::now();
 
     // Check if the incomplete_word is the actual word
-    if (bloom_filter.search(incomplete_word))
-        is_word = true;
+    if (!bloom_filter.search(incomplete_word))
+        is_word = false;
+    else
+        if (trie.search(incomplete_word))
+            is_word = true;
 
     // Print out all possible autocompletions
     for (auto word : trie.autocomplete(incomplete_word))
@@ -69,13 +72,15 @@ int main(int argc, char* argv[]) {
 
     // Is the pattern a word?
     if (is_word)
-        std::cout << "\033[94mYOUR PATTERN IS A WORD!\033[0m\n" << std::endl;
+        std::cout << "\033[93mYOUR PATTERN IS A WORD\033[0m\n" << std::endl;
+    else
+        std::cout << "\033[93mYOUR PATTERN IS NOT A WORD\033[0m\n" << std::endl;
 
     // What is the total number of words?
-    std::cout << "\033[93mTOTAL NUMBER OF WORDS: " << trie.autocomplete_number(incomplete_word) << std::endl;
+    std::cout << "\033[93mPOSSIBLE AUTOCOMPLETIONS: " << trie.autocomplete_number(incomplete_word) << std::endl;
 
     // What time did the program take?
-    std::cout << "\033[93mTIME (MICROSECONDS):   " << time_elapsed << "\033[0m" << std::endl;
+    std::cout << "\033[93mTIME (MICROSECONDS):      " << time_elapsed << "\033[0m" << std::endl;
 
     return 0;
 }

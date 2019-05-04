@@ -81,8 +81,12 @@ std::vector<std::string> Trie::autocomplete(std::string& prefix) {
     TrieNode* current = this->root;
     std::vector<std::string> result;
 
-    for (unsigned int i = 0; i < prefix.length(); i++) {
-        int index = Trie::get_index(prefix[i]);
+    for (char letter : prefix) {
+        int index = Trie::get_index(letter);
+
+        if (current->children[index] == NULL)
+            return result;
+
         current = current->children[index];
     }
 
