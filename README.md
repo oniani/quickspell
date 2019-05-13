@@ -22,3 +22,6 @@ QuickSpell looks in the dictionary file which is located in the `data` folder (y
 1. [Bloom filter - Wikipedia](https://en.wikipedia.org/wiki/Bloom_filter)
 1. [Trie - Wikipedia](https://en.wikipedia.org/wiki/Trie)
 3. [C++ - Wikipedia](https://en.wikipedia.org/wiki/C%2B%2B)
+
+### License
+[GNU General Public License v3.0](LICENSE)
