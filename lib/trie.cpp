@@ -1,13 +1,13 @@
-/* 
+/*
  * File:   trie.cpp
  * Date:   03/31/2019
  * Author: David Oniani
- * 
+ *
  * License:
  * Please read the LICENSE file in this distribution for details regarding
  * the licensing of this code.
  * THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND.
- * 
+ *
  */
 
 #include "trie.hpp"
@@ -46,7 +46,7 @@ bool Trie::search(std::string word) {
 
         if (current->children[index] == NULL)
             return false;
-        
+
         current = current->children[index];
     }
 

@@ -1,17 +1,17 @@
-/* 
+/*
  * File:   spell_check_main.cpp
  * Author: David Oniani
  * (c) 2019
  * Created on March 29, 2019
- * 
+ *
  * License:
  * Please read the LICENSE file in this distribution
  * for details regarding the licensing of this code.
  * THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND.
- * 
+ *
  * Description:
  * This file is the primary app.
- * 
+ *
  */
 
 #include "spellcheck.cpp"
@@ -43,6 +43,12 @@ int main(int argc, char* argv[]) {
     std::stringstream ss = std::stringstream(input);
     ss >> incomplete_word;
 
+    std::string incomplete_word_pretty_print = incomplete_word;
+
+    // Convert the word to lowercase
+    std::transform(incomplete_word.begin(), incomplete_word.end(), incomplete_word.begin(),
+    [](unsigned char c){ return std::tolower(c); });
+
     // A variable to determine whether the pattern is a word
     bool is_word;
 
@@ -57,9 +63,9 @@ int main(int argc, char* argv[]) {
             is_word = true;
 
     // Print out all possible autocompletions
-    for (auto word : trie.autocomplete(incomplete_word))
-        std::cout << "\033[92m" + word.substr(0, incomplete_word.length()) +
-            "\033[0m" + word.substr(incomplete_word.length(), word.length()) << std::endl;
+    for (auto word : trie.autocomplete(incomplete_word_pretty_print))
+        std::cout << "\033[92m" + word.substr(0, incomplete_word_pretty_print.length()) +
+            "\033[0m" + word.substr(incomplete_word_pretty_print.length(), word.length()) << std::endl;
 
     // End the timer
     auto end = std::chrono::steady_clock::now();
