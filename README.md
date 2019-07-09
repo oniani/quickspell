@@ -12,7 +12,7 @@ make run    # at this point, the user is prompted to enter a pattern
 make clean  # if one wants to get rid of the executables
 ```
 
-For the further clarification, see the example below.
+For the further clarification, see the image below.
 
 ![Demo](./images/demo.png)
 
