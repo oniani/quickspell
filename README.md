@@ -28,4 +28,4 @@ QuickSpell looks in the dictionary file which is located in the `data` folder (y
 
 ## License
 
-[GNU General Public License v3.0](LICENSE)
+[MIT License](LICENSE)
